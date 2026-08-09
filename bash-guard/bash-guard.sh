@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # bash-guard.sh — Claude Code PreToolUse hook for the Bash tool
-# Full docs, usage, and setup instructions: see bash-guard.md
+# Full docs, usage, and setup instructions: see README.md
 # Toggle: echo off|on > ~/.claude/bash-auto-approve.conf
 
 set -euo pipefail
