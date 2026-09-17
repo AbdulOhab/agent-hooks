@@ -7,32 +7,37 @@
    ```bash
    chmod +x ~/.claude/hooks/bash-guard.sh
    ```
-3. **Register it as a `PreToolUse` hook** for the `Bash` tool in `~/.claude/settings.json` (or your project's `.claude/settings.json`):
+3. **Register it as a `PreToolUse` hook** for the `Bash` tool in `~/.claude/settings.json` (or your project's `.claude/settings.json`). Use an absolute path and a short `timeout` — this is the exact block as deployed:
    ```json
-   {
-     "hooks": {
-       "PreToolUse": [
-         {
-           "matcher": "Bash",
-           "hooks": [
-             {
-               "type": "command",
-               "command": "~/.claude/hooks/bash-guard.sh"
-             }
-           ]
-         }
-       ]
-     }
+   "hooks": {
+     "PreToolUse": [
+       {
+         "matcher": "Bash",
+         "hooks": [
+           {
+             "type": "command",
+             "command": "/home/YOURUSER/.claude/hooks/bash-guard.sh",
+             "timeout": 10
+           }
+         ]
+       }
+     ]
    }
    ```
-4. **Toggle it on/off** at any time without touching settings.json:
+   Merge it into your existing settings.json — never replace the whole file.
+4. **Prove the hook actually fires.** An unwired hook and a wired-but-broken one look identical from the outside — this script once sat for a month without ever being registered, and nothing hinted at it. Verify with a sentinel: temporarily prefix the hook's `"command"` in settings.json with
+   ```bash
+   echo "$(date) hook fired" >> /tmp/claude-hook-check.txt; 
+   ```
+   then run any harmless command through Claude (e.g. `true`) and confirm `/tmp/claude-hook-check.txt` appears. Strip the prefix afterwards. If no file shows up, run `/hooks` once or restart Claude Code — hook changes made mid-session load only after a reload.
+5. **Toggle it on/off** at any time without touching settings.json:
    ```bash
    echo off > ~/.claude/bash-auto-approve.conf   # disable auto-approve
    echo on  > ~/.claude/bash-auto-approve.conf   # re-enable (also the default)
    ```
    When disabled, the script exits silently and Claude Code's normal permission system (mode + allow/deny/ask rules) takes over as if the hook didn't exist.
-5. **Pair it with explicit rules** in `settings.json` for real hard blocks — see Part 8 below. The hook is a catch-all convenience layer, not a substitute for `deny` rules.
-6. **Customize the danger list** by editing `danger_regex` in the script — see Part 6 for the current patterns and how to add/remove one.
+6. **Pair it with explicit rules** in `settings.json` for real hard blocks — see Part 7 below. The hook is a catch-all convenience layer, not a substitute for `deny` rules.
+7. **Customize the danger list** by editing `danger_regex` in the script — see Part 5 for the current patterns and how to add/remove one.
 
 ---
 
