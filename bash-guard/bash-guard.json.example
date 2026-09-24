@@ -1,0 +1,7 @@
+{
+  "safe_dirs": ["/home/YOURUSER/projects"],
+  "extra_allow_commands": [],
+  "extra_ask_commands": [],
+  "scratch_db_markers": ["-P\\s*3307\\b", "\\bmy_scratch_db\\b"],
+  "frozen_branches": [{"branch": "master", "if_tag": "upstream/1.0"}]
+}

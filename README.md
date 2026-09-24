@@ -6,7 +6,7 @@ Personal collection of [Claude Code](https://claude.com/claude-code) hooks. Ever
 
 | Hook | Event | Description |
 |---|---|---|
-| [bash-guard/](bash-guard/) | `PreToolUse` (Bash) | Auto-approves safe Bash commands, flags destructive ones for review. Docs: [bash-guard/README.md](bash-guard/README.md) |
+| [bash-guard/](bash-guard/) | `PreToolUse` (Bash, Read, Write, Edit) | Parses shell commands and auto-approves routine work; asks on destructive / outward / secret-touching ones. Logged, configurable, 112 tests. Docs: [bash-guard/README.md](bash-guard/README.md) |
 
 ## Adding a new hook
 
